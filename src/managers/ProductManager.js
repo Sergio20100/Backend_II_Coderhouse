@@ -1,8 +1,8 @@
 
 
-import { isValidID } from "../config/mongoose.config.js";
+import { isValidID } from "../config/database.js";
 import productModel from "../models/product.model.js";
-import { convertToBool } from "../utils/converter.js"
+import { convertToBool } from "../utils/index.js"
 import ErrorManager from "./ErrorManager.js";
 
 

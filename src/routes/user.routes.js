@@ -1,31 +1,37 @@
 import { Router } from "express";
 import userModel from "../models/user.model.js";
 import handlePolicies from "../middlewares/handle-policies.js";
+import UserManager from "../managers/UserManager.js";
+import ErrorManager from "../managers/ErrorManager.js";
+import { isValidPassword ,createHash, generateToken } from "../utils/index.js";
+import { isValidID } from "../config/database.js";
+import CartManager from "../managers/CartManager.js";
 const router = Router();
 
-router.get("/",handlePolicies(["ADMIN","PROFESOR","USER PREMIUM"]), async (req, res) => {
+const userManager = new UserManager();
+const cartManager = new CartManager();
+router.get("/", async (req, res) => {
   try {
-    const users = await userModel.find();
+    const users = await userManager.getAll();
 
-    res.status(200).send({ status: "OK", users });
+    res.status(200).send({ status: "OK", payload:users });
   } catch (error) {
-    res
-      .status(500)
-      .send({ status: "Error interno del servidor", error: error.message });
+    res.status(500).send({ status: "Error interno del servidor", error: error.message });
   }
 });
 
-router.get("/current",handlePolicies(["ADMIN","USER","USER PREMIUM"]), async (req, res) => {
-  try {
-    console.log(req.user);
+// router.get("/current", handlePolicies(["ADMIN", "user", "USER PREMIUM"]), async (req, res) => {
+//   try {
+//     console.log(req.user);
 
-    res.status(200).send({ status: "OK", user: req.user });
-  } catch (error) {
-    res
-      .status(500)
-      .send({ status: "Error interno del servidor", error: error.message });
-  }
-});
+//     res.status(200).send({ status: "OK", user: req.user });
+//   } catch (error) {
+//     res
+//       .status(500)
+//       .send({ status: "Error interno del servidor", error: error.message });
+//   }
+// });
+
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
@@ -41,29 +47,54 @@ router.get("/:id", async (req, res) => {
 });
 
 
-const users = [{ id: 1, email: "saul@mail.com", password: "password123" }];
 
-router.post("/login", (req, res) => {
-  const { email, password } = req.body;
-  const userFound = users.find(function (user) {
-    return user.email === email && user.password === password;
-  });
 
-  console.log(userFound);
-  const user = { ...userFound };
-  delete user.password;
-
-  if (!userFound) return res.status(401).send("Credenciales invalidas");
-
-  let token = createToken(user);
-  //   res.status(200).send({ message: "Login exitoso", token: token });
-  res
-    .cookie("authCookie", token, { maxAge: 60 * 60 * 1000, httpOnly: true })
-    .send({ message: "Login exitoso" });
+router.post('/register', async (req, res) => {
+  const { first_name, last_name, email, password, role, cart } = req.body;
+  try {
+    // validar si vienen los campos
+    const newUser = {
+      first_name,
+      last_name,
+      email,
+      password: createHash(password),
+    }
+    if(cart){
+      try {
+        const cartFound = await cartManager.getOneById(cart);
+        newUser.cart = cartFound._id;
+      } catch (error) {
+        res.status(400).json({status:"Error",message:ErrorManager.handleError(error).message})
+      }
+    }
+    if(role) newUser.role = role;
+    const userCreated = await userManager.insertOne(newUser);
+    res.status(201).json({ status: 'Ok', payload: userCreated });
+    // res.redirect('/login'); 
+  } catch (error) {
+    res.status(500).json({ status: "Error al registrar el usuario", message: ErrorManager.handleError(error).message });
+  }
 });
 
-// router.get('/current',passport.authenticate('jwt',{session:false}), (req,res)=>{
-//   res.send(req.user)
-// })
+router.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const userFound = await userManager.getOneByEmail(email);
+
+    if (!userFound ||!isValidPassword(password, userFound.password) ) return res.status(401).json({status:"Error",message: "Credenciales invalidas"});
+    // en caso tal pase la validacion de la password
+    const user = { ...userFound._doc };
+    delete user.password;
+    
+    let token = generateToken(user);
+    //   res.status(200).send({ message: "Login exitoso", token: token });
+    res.cookie("authCookie", token, { maxAge: 60 * 60 * 1000, httpOnly: true }).status(200).send({ status: "Login exitoso" });
+
+
+  } catch (error) {
+    res.status(400).json({status:"Error en el login",message:error.message})
+    throw error;
+  }
+});
 
 export default router;

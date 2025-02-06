@@ -2,17 +2,18 @@ import passport from "passport";
 import jwt from "passport-jwt";
 const JWTStratgy = jwt.Strategy;
 const ExtractJWT = jwt.ExtractJwt;
+const JWT_SECRET = "micodigosecreto";
 
 // install and import strategy (local, google,github,etc)
 // import userModel from "../models/user.model.js";
 const initializePassport = () => {
   //Strategies
   passport.use(
-    "jwt",
+    "current",
     new JWTStratgy(
       {
         jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor]),
-        secretOrKey: "clave-secreta", //la misma que pase en utils al sign
+        secretOrKey: JWT_SECRET, //la misma que pase en utils al sign
       },
       async (jwt_payload, done) => {
         try {
