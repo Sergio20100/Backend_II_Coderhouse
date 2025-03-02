@@ -1,0 +1,29 @@
+{
+  "name": "proyecto-final-backend2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Sergio Mendoza Vasquez",
+  "license": "MIT",
+  "type": "module",
+  "description": "Proyecto final para el curso backend 2 de coderhouse ",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "bcrypt": "^5.1.1",
+    "express": "^4.21.2",
+    "mongoose-paginate-v2": "^1.8.5",
+    "jsonwebtoken": "^9.0.2",
+    "cookie-parser": "^1.4.7",
+    "mongoose": "^8.9.6",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
