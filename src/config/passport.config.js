@@ -1,11 +1,9 @@
 import passport from "passport";
 import jwt from "passport-jwt";
+import env from "./env.js";
+import { cookieExtractor } from "../utils/index.js";
 const JWTStratgy = jwt.Strategy;
 const ExtractJWT = jwt.ExtractJwt;
-const JWT_SECRET = "micodigosecreto";
-
-// install and import strategy (local, google,github,etc)
-// import userModel from "../models/user.model.js";
 const initializePassport = () => {
   //Strategies
   passport.use(
@@ -13,7 +11,7 @@ const initializePassport = () => {
     new JWTStratgy(
       {
         jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor]),
-        secretOrKey: JWT_SECRET, //la misma que pase en utils al sign
+        secretOrKey: env.jwt_secret, //la misma que pase en utils al sign
       },
       async (jwt_payload, done) => {
         try {
@@ -26,11 +24,5 @@ const initializePassport = () => {
   );
 };
 
-const cookieExtractor = (req) => {
-  let token = null;
-  if (req && req.cookies) {
-    token = req.cookies["authCookie"];//el nombre de la cookie
-  }
-  return token;
-};
+
 export default initializePassport;

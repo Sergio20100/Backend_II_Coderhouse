@@ -4,11 +4,21 @@ export default class TicketRepository {
   constructor(dao) {
     this.dao = dao;
   }
-  getTickets = async () => {
-    return await this.dao.get();
+  getTickets = async (query) => {
+    return await this.dao.get(query);
+  };
+  getTicketById = async (id) => {
+    return await this.dao.getById(id);
   };
   createTicket = async (ticket) => {
     const ticketToInsert = new TicketDTO(ticket);
     return await this.dao.post(ticketToInsert);
+  };
+  updateTicket = async (id,ticket) => {
+    const ticketToInsert = new TicketDTO(ticket);
+    return await this.dao.put(id,ticketToInsert.ticket);
+  };
+  deleteById = async (id) => {
+    return await this.dao.delete(id);
   };
 }

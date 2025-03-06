@@ -29,7 +29,7 @@ export default class CartManager {
     }
     /** */
     // Obtiene un carrito específico por su ID
-    async getOneById(id) {
+    async getById(id) {
         try {
             return await this.#findOneById(id);
         } catch (error) {
@@ -51,7 +51,7 @@ export default class CartManager {
                     quantity: 1
                 }))
         }
-        console.log(insertData);
+        // console.log(insertData);
         try {
             const cart = await this.#cartModel.create(insertData);
             return cart;
@@ -65,11 +65,11 @@ export default class CartManager {
      * @param data
      * @returns cart
      */
-    async updateOne(cid, data) {
+    async put(cid, data) {
         try {
             const cart = await this.#findOneById(cid);
-            console.log("se encontro el id del carrito a actualizar: ",cid)
-            console.log(cart)
+            // console.log("se encontro el id del carrito a actualizar: ", cid)
+            // console.log(cart)
             const updateData = {
                 products: data.products.map(item => (
                     {
@@ -77,7 +77,7 @@ export default class CartManager {
                         quantity: 1
                     }))
             }
-            const cartUpdated = await this.#cartModel.findByIdAndUpdate(cid, {$set: updateData }, {new: true} )
+            const cartUpdated = await this.#cartModel.findByIdAndUpdate(cid, { $set: updateData }, { new: true })
             return cartUpdated
         } catch (error) {
             throw new ErrorManager(error.message, error.code)
@@ -125,7 +125,7 @@ export default class CartManager {
             throw new ErrorManager(error.message, error.code);
         }
     }
-    async getAll(params) {
+    async get(params) {
         try {
             const paginationOptions = {
                 limit: params?.limit || 10, // Número de documentos por página (por defecto 10)
@@ -171,4 +171,12 @@ export default class CartManager {
         }
     }
 
+    async delete(id) {
+        try {
+            const cart = await this.#findOneById(id);
+            await cart.deleteOne();
+        } catch (error) {
+            throw ErrorManager.handleError(error);
+        }
+    }
 }

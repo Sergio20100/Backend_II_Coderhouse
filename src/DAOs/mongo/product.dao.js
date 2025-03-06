@@ -16,12 +16,12 @@ export default class ProductManager {
 
     async #findOneById(id) {
         if(!isValidID(id)){
-            throw ErrorManager("ID invalido",400);
+            throw new ErrorManager("ID invalido",400);
         }
 
         const product = await this.#productModel.findById(id);
         if(!product){
-            throw ErrorManager("ID no encontrado",404);
+            throw new ErrorManager("ID no encontrado",404);
         }
         return product;
     }

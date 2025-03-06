@@ -1,12 +1,13 @@
 import { Router } from "express";
-import handlePolicies from "../middlewares/handle-policies.js";
+import handleRolePolicies from "../middlewares/handle-policies.js";
 import passport from "passport";
+import { current_admin, current } from "../controllers/session.controller.js";
 
-handlePolicies;
+// handleRolePolicies;
 const router = Router();
 
-router.get('/current',passport.authenticate('current',{session:false}), (req,res)=>{
-  res.send(req.user)
-})
+router.get('/current',passport.authenticate('current',{session:false}), current)
+
+router.get('/current_admin',handleRolePolicies(["ADMIN",]),current_admin)
 
 export default router;

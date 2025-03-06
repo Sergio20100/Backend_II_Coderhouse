@@ -8,7 +8,9 @@ const TicketSchema = new Schema({
   },
 //   date:Date,
   purchaser:{
-    type: String, ref: "users.email" 
+    type: Schema.Types.ObjectId, 
+    ref: "users",
+    required: true 
   },
   amount: Number, // totalprice
 },{
