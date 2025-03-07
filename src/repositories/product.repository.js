@@ -12,7 +12,7 @@ export default class ProdutRepository {
   };
   createProdut = async (produt) => {
     const productToInsert = new ProductDTO(produt);
-    return await this.dao.post(productToInsert.product);
+    return await this.dao.post(productToInsert);
   };
   updateById = async (id, produt) => {
     const productToInsert = new ProductDTO(produt);

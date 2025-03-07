@@ -3,8 +3,8 @@
 
 import { isValidID } from "../../config/database.js";
 import productModel from "../mongo/models/product.model.js";
-import { convertToBool } from "../../utils/index.js";
 import ErrorManager from "../../managers/ErrorManager.js";
+import { convertToBool } from "../../utils/index.js";
 
 
 export default class ProductManager {
@@ -66,10 +66,11 @@ export default class ProductManager {
      */
     async post(data) {
         try {
-            console.log(data)
-            const product = await this.#productModel.create({...data.product, status: convertToBool(data.product.status),})
+            //console.log(data)
+            const product = await this.#productModel.create({...data, status: convertToBool(data.status),})
             return product;
         } catch (error) {
+            console.log(error);
             throw ErrorManager.handleError(error);
         }
     }

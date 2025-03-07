@@ -51,7 +51,6 @@ export default class CartManager {
                     quantity: 1
                 }))
         }
-        // console.log(insertData);
         try {
             const cart = await this.#cartModel.create(insertData);
             return cart;
@@ -68,8 +67,6 @@ export default class CartManager {
     async put(cid, data) {
         try {
             const cart = await this.#findOneById(cid);
-            // console.log("se encontro el id del carrito a actualizar: ", cid)
-            // console.log(cart)
             const updateData = {
                 products: data.products.map(item => (
                     {

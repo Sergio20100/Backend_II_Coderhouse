@@ -25,10 +25,11 @@ const productSchema = new Schema({
         // index: { name: "idx_code" },
         type: String,
         required: [ true, "El codigo es obligatorio" ],
-        uppercase: false,
+        uppercase: true,
         trim: true,
         minLength: [ 3, "El codigo debe tener al menos 3 caracteres" ],
         maxLength: [ 10, "El codigo debe tener como máximo 10 caracteres" ],
+        unique:[true,"El codigo debe ser unico"]
     },
     price: {
         type: Number,

@@ -42,8 +42,6 @@ export const createTicket = async (req, res) => {
 
 export const updateTicket = async (req, res) => {
     try {
-        // console.log(req.params);
-        
         const ticket = await ticketServices.updateTicket(req.params?.tid, req.body);
         res.status(200).json({ status: "success", payload: ticket });
     } catch (error) {

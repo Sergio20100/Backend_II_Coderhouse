@@ -7,7 +7,7 @@ const ExtractJWT = jwt.ExtractJwt;
 const initializePassport = () => {
   //Strategies
   passport.use(
-    "current",
+    "hasJWT",
     new JWTStratgy(
       {
         jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor]),

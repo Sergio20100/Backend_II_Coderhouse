@@ -1,0 +1,341 @@
+{
+	"info": {
+		"_postman_id": "49cbcfea-c433-463f-8f8e-d2c6cb49973b",
+		"name": "Workshop_eComer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "35168540"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "GetUsers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/users"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUsers",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:3000/users/67a4d7008dda04c91a84570f"
+					},
+					"response": []
+				},
+				{
+					"name": "GetUsersById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/users/67ca7eed3fd1e51ae164972d"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Carts",
+			"item": [
+				{
+					"name": "GetCarts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/carts"
+					},
+					"response": []
+				},
+				{
+					"name": "GetCartById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/carts/67c919a599dd027f01e31351"
+					},
+					"response": []
+				},
+				{
+					"name": "CreateCart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"products\":[]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/carts"
+					},
+					"response": []
+				},
+				{
+					"name": "AddProduct",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\":3,\n  \"product\":\"dulce de leche\",\n  \"price\":689\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/carts/67c919a599dd027f01e31351/product/6769f093d6923c74246c7762"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteProduct",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\":3,\n  \"product\":\"dulce de leche\",\n  \"price\":689\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/carts/67c919a599dd027f01e31351/product/6769f093d6923c74246c7762"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tickets",
+			"item": [
+				{
+					"name": "GetTickets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/tickets"
+					},
+					"response": []
+				},
+				{
+					"name": "GetTicketById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/tickets/67c92b21fec62a0ac7026859"
+					},
+					"response": []
+				},
+				{
+					"name": "ResolveTicket",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": "http://localhost:3000/api/orders/67af7c69d934b86324c3dc9c/resolve"
+					},
+					"response": []
+				},
+				{
+					"name": "CreateTicket",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"code\":\"001\",\n  \"user_id\":\"67c91b20d50f23d2d70c5655\",\n  \"amount\":20000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/tickets"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteTicket",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:3000/tickets/67c92346cb0a539e75854107"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "GetProducts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/products"
+					},
+					"response": []
+				},
+				{
+					"name": "GetById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/products/6769f06ed6923c74246c7760"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:3000/products/67ca6ed43cb20ea71c21fc1f"
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": "http://localhost:3000/api/orders/67af7c69d934b86324c3dc9c/resolve"
+					},
+					"response": []
+				},
+				{
+					"name": "CreateProduct",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"title\": \"ARROZ diana 500g\",\n        \"description\": \"alimento del dia a dia en colombia 500 gramos\",\n        \"code\": \"na04\",\n        \"price\": 4500,\n        \"status\": true,\n        \"stock\": 50,\n        \"category\": \"GRANO\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/products"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Session",
+			"item": [
+				{
+					"name": "getCurrent_admin",
+					"request": {
+						"auth": {
+							"type": "jwt",
+							"jwt": {
+								"algorithm": "HS256",
+								"isSecretBase64Encoded": false,
+								"payload": "{}",
+								"addTokenTo": "header",
+								"headerPrefix": "Bearer",
+								"queryParamKey": "token",
+								"header": "{}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/api/session/current_admin"
+					},
+					"response": []
+				},
+				{
+					"name": "getCurrent",
+					"request": {
+						"auth": {
+							"type": "jwt",
+							"jwt": {
+								"algorithm": "HS256",
+								"isSecretBase64Encoded": false,
+								"payload": "{}",
+								"addTokenTo": "header",
+								"headerPrefix": "Bearer",
+								"queryParamKey": "token",
+								"header": "{}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/api/session/current"
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"auth": {
+							"type": "jwt",
+							"jwt": {
+								"algorithm": "HS256",
+								"isSecretBase64Encoded": false,
+								"payload": "{}",
+								"addTokenTo": "header",
+								"headerPrefix": "Bearer",
+								"queryParamKey": "token",
+								"header": "{}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/api/session/current"
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\":\"admin02@hotmail.com\",\r\n  \"password\":\"123321\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/session/login"
+					},
+					"response": []
+				},
+				{
+					"name": "RegisterUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"first_name\":\"sergio\", \n  \"last_name\":\"mendoza\",\n  \"email\":\"sergio@hotmail.com\",\n  \"password\":\"123321\",\n  \"role\":\"ADMIN\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/session/register"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -63,7 +63,7 @@ export const updateCart = async (req, res) => {
  */
 export const addProductToCart = async (req, res) => {
     try {
-        // console.log(req.body)
+        console.log("User login:",req.user);
         const { cid, pid } = req.params;
         const cart = await cartServices.addProductById(cid,pid);
         res.status(201).json({ status: "success", payload: cart });
